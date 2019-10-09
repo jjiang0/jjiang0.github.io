@@ -291,12 +291,16 @@
       console.log(str.code);
 
       var i;
+      var startlist="<ol>";
+      var endlist="</ol>";
 
       for(i=0; i<countries.length-1;i+=1){
 
         console.log(countries[i]);
         
       }
+
+      document.getElementById("empty").innerHTML=startlist+endlist;
     }
   </script>
 </body>
