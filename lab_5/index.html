@@ -11,7 +11,7 @@
     <div class="wrapper">
       <div class="header">Test JSON page</div>
       <!-- <button class="button" onclick="loadData()">Load Some JSON</button> -->
-      <button class="button" onclick="loadData()">Click me to replace list entries</button>
+      <button class="button" onclick=console.log(loadData())>Click me to replace list entries</button>
       <div class="content">
         <ul class="instructions">
           <li>Delete and re-clone the class repository</li>
@@ -279,28 +279,31 @@
       { "name": "Zimbabwe", "code": "ZW" }
     ]
     console.log("List of countries in the world", countries);
-
-    let country=JSON.stringify(countries);
-
     sessionStorage.setItem("countries_code", JSON.stringify(countries));
 
     function loadData(){
 
       const str=sessionStorage.getItem("countries_code");
-      const json=JSON.parse(str);
-      console.log(str.code);
+      const list=JSON.parse(str);
 
-      var i;
-      var startlist="<ol>";
-      var endlist="</ol>";
+      const nameArray=list.map((i)=>i.name);
 
-      for(i=0; i<countries.length-1;i+=1){
+      const instructQuery=document.querySelector(".instructions");
+      instructQuery.innerHTML="";
 
-        console.log(countries[i]);
-        
+      var startlist=document.querySelector("ol");
+
+      for(let i=0; i<50;i+=1){
+
+        const rand=Math.floor(Math.random() * 243);
+
+        var item=nameArray[rand];
+        var el=document.createElement("li");
+        el.innerText=item;
+
+        startlist.appendChild=el;
       }
 
-      document.getElementById("empty").innerHTML=startlist+endlist;
     }
   </script>
 </body>
