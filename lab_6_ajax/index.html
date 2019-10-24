@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Test AJAX page</title>
+  <link rel="stylesheet" type="text/css" href="./lab_styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="header">Test AJAX page</div>
+      <button class="button" onclick="loadData()">Load Some JSON</button>
+      <div class="content"></div>
+      <div class="footer"></div>
+    </div>
+  </div>
+  <script>
+    function loadData() {
+      fetch('ajax_sample.json')
+        .then(res => res.json())
+        .then(res => res.map(c => c.code))
+        .then(codes => document.querySelector(".content").innerText = codes);
+
+      const str=sessionStorage.getItem("countries_name");
+      const list=JSON.parse(str);
+
+      const nameArray=list.map((i)=>i.name);
+
+      const instructQuery=document.querySelector(".instructions");
+      instructQuery.innerHTML="";
+
+      var startlist=document.querySelector("ol");
+
+      for(let i=0; i<15;i+=1){
+
+        const rand=Math.floor(Math.random() * 243);
+
+        var item=nameArray[rand];
+        var el=document.createElement("li");
+        el.innerText=item;
+
+        startlist.appendChild=el;
+      }
+    }
+  </script>
+</body>
+
+</html>
