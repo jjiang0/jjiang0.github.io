@@ -11,7 +11,11 @@
     <div class="wrapper">
       <div class="header">Test AJAX page</div>
       <button class="button" onclick="loadData()">Load Some JSON</button>
-      <div class="content"></div>
+      <div class="content">
+        <ol class="instructions">
+
+        </ol>
+      </div>
       <div class="footer"></div>
     </div>
   </div>
@@ -19,29 +23,29 @@
     function loadData() {
       fetch('ajax_sample.json')
         .then(res => res.json())
-        .then(res => res.map(c => c.code))
-        .then(codes => document.querySelector(".content").innerText = codes);
+        .then(res => res.map(c => c.name + ", " + c.code))
+        .then(codes => {
 
-      const str=sessionStorage.getItem("countries_name");
-      const list=JSON.parse(str);
+          const instructQuery = document.querySelector('.instructions');
+          instructQuery.innerHTML = '';
 
-      const nameArray=list.map((i)=>i.name);
+          for (let i = 0; i < 15; i++) {
 
-      const instructQuery=document.querySelector(".instructions");
-      instructQuery.innerHTML="";
+            const itemNum = getRandomIntInclusive(0, 242);
+            let el = document.createElement("li");
 
-      var startlist=document.querySelector("ol");
+            el.innerText = codes[itemNum];
 
-      for(let i=0; i<15;i+=1){
+            instructQuery.appendChild(el);
+          };
+        }
+        );
+    }
 
-        const rand=Math.floor(Math.random() * 243);
-
-        var item=nameArray[rand];
-        var el=document.createElement("li");
-        el.innerText=item;
-
-        startlist.appendChild=el;
-      }
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
     }
   </script>
 </body>
