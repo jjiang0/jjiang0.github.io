@@ -23,34 +23,28 @@
     function loadData() {
       fetch('https://api.umd.io/v0/bus/routes')
         .then(res => res.json())
-        .then(res => res.map(r => r.title + ", " + r.route_id))
-        .then(res => {
-          // you can now work in this area
-          console.log(res);
+        .then(data => { //Log data
 
-          var route_data=res.length;
-
-
-          for(let i=0; i<res.length; i++){
-
-            route_data[i]=res[i];
-          }
-
-          const instructQuery = document.querySelector('.instructions');
-          instructQuery.innerHTML = '';
-
-          for (let i=0;i<route_data.length;i++) {
-
-            const itemNum = getRandomIntInclusive(0, 242);
-            let el = document.createElement("li");
-
-            el.innerText = route_data[i];
-
-            instructQuery.appendChild(el);
-          };
-
-          return route_data;
+          console.log(data);
+          return data;
         })
+
+        .then(data => { //Make array
+          const routeAndTitleArray = data.map(c => `${c.route_id} ${c.title}`);
+          makeListInHTML(routeAndTitleArray);
+
+          return data
+        })
+        .then(data => { //Rename bus route title to selected title
+          const htmlTarget = document.querySelector('.header');
+          const selectedRoute = data.find(f => f.route_id === '114');
+          const newHeaderName = "UMD Bus Route " + selectedRoute.route_id + " " + selectedRoute.title;
+         
+          htmlTarget.innerText = newHeaderName;
+          return data;
+        })
+        
+        .then(data => console.log(data));
 
     }
   </script>
