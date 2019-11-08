@@ -31,7 +31,7 @@
 
         .then(data => { //Make array
           const routeAndTitleArray = data.map(c => `${c.route_id} ${c.title}`);
-          makeListInHTML(routeAndTitleArray);
+          makeList(routeAndTitleArray);
 
           return data
         })
@@ -46,6 +46,20 @@
         
         .then(data => console.log(data));
 
+    }
+
+    function makeList(array) {
+      const htmlTarget = document.querySelector('.content');
+      htmlTarget.innerHTML = '';
+      let el1 = document.createElement("ul");
+      el1.className = 'list';
+      htmlTarget.appendChild(el1);
+
+      for (let i = 0; i < array.length; i++) {
+        let el = document.createElement("li");
+        el.innerText = array[i];
+        htmlTarget.appendChild(el);
+      };
     }
   </script>
 </body>
